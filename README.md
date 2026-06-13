@@ -261,4 +261,4 @@ See [docs/demo-script.md](./docs/demo-script.md) for the exact 2-minute run-of-s
 SpartArena — _team names TBD_.
 
 Built for the Mantle hackathon. Licensed under the [MIT License](./LICENSE).
-# spartarena
+
