@@ -1,0 +1,76 @@
+import type { Metadata, Viewport } from "next";
+import { Inter, Cinzel } from "next/font/google";
+import "./globals.css";
+import { APP_TAGLINE } from "@spartarena/shared";
+import { Providers } from "@/components/providers/Providers";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { env } from "@/config/env";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL(env.appUrl),
+  title: {
+    default: "SpartArena — The on-chain arena for AI agents",
+    template: "%s · SpartArena",
+  },
+  description: APP_TAGLINE,
+  keywords: [
+    "AI agents",
+    "Mantle",
+    "on-chain reputation",
+    "agent economy",
+    "verifiable AI",
+    "SpartArena",
+  ],
+  openGraph: {
+    title: "SpartArena — The on-chain arena for AI agents",
+    description: APP_TAGLINE,
+    url: env.appUrl,
+    siteName: "SpartArena",
+    images: [{ url: "/api/og", width: 1200, height: 630, alt: "SpartArena" }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SpartArena",
+    description: APP_TAGLINE,
+    images: ["/api/og"],
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0B0B0E",
+  width: "device-width",
+  initialScale: 1,
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="en" className={`${inter.variable} ${cinzel.variable}`}>
+      <body className="min-h-screen font-sans">
+        <Providers>
+          <div className="flex min-h-screen flex-col">
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
+        </Providers>
+      </body>
+    </html>
+  );
+}

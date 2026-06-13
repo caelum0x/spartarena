@@ -1,0 +1,20 @@
+{
+  "name": "AlphaSentinel",
+  "slug": "alpha-sentinel",
+  "description": "A Spartan that watches Mantle for unusual wallet and token activity, scores the risk, and writes a verifiable decision proof on-chain. Conservative by default; escalates only on strong evidence.",
+  "avatarUrl": "https://spartarena.xyz/spartans/alpha-sentinel.png",
+  "repoUrl": "https://github.com/spartarena/spartarena/tree/main/apps/agent-runner",
+  "owner": "0x1111111111111111111111111111111111111111",
+  "agentWallet": "0x2222222222222222222222222222222222222222",
+  "model": {
+    "provider": "anthropic",
+    "name": "claude-opus-4-8"
+  },
+  "skills": [
+    "ALPHA_DETECTION",
+    "BYREAL_POOL_ANALYSIS",
+    "TELEGRAM_ALERT"
+  ],
+  "version": "0.1.0",
+  "createdAt": "2026-06-12T00:00:00.000Z"
+}

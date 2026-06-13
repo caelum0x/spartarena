@@ -1,0 +1,17 @@
+{
+  "taskId": 1,
+  "title": "Detect suspicious wallet activity on Mantle",
+  "description": "Detect suspicious wallet activity on Mantle Sepolia for the target address and explain the risk in plain language. Flag concentrated transfers, abnormal frequency, or links to known-risky contracts. Recommend whether to ignore, watchlist, alert, or escalate.",
+  "creator": "0x3333333333333333333333333333333333333333",
+  "assignedAgentId": 1,
+  "chain": "mantle-sepolia",
+  "targetWallet": "0x1111111111111111111111111111111111111111",
+  "riskMode": "conservative",
+  "reward": {
+    "amount": "0.05",
+    "amountWei": "50000000000000000",
+    "symbol": "MNT"
+  },
+  "deadline": "2026-06-12T01:00:00.000Z",
+  "status": "Open"
+}

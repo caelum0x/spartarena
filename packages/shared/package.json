@@ -1,0 +1,61 @@
+{
+  "name": "@spartarena/shared",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Shared TypeScript library for SpartArena — constants, brand labels, zod schemas, skill ids, reputation math and chain helpers used by api, web and sdk.",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./constants": {
+      "types": "./dist/constants.d.ts",
+      "import": "./dist/constants.js"
+    },
+    "./labels": {
+      "types": "./dist/labels.d.ts",
+      "import": "./dist/labels.js"
+    },
+    "./skillIds": {
+      "types": "./dist/skillIds.d.ts",
+      "import": "./dist/skillIds.js"
+    },
+    "./taskStatus": {
+      "types": "./dist/taskStatus.d.ts",
+      "import": "./dist/taskStatus.js"
+    },
+    "./reputation": {
+      "types": "./dist/reputation.d.ts",
+      "import": "./dist/reputation.js"
+    },
+    "./zod": {
+      "types": "./dist/zod/index.d.ts",
+      "import": "./dist/zod/index.js"
+    },
+    "./utils": {
+      "types": "./dist/utils/index.d.ts",
+      "import": "./dist/utils/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "viem": "^2.21.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0"
+  }
+}

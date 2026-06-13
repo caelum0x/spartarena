@@ -1,0 +1,32 @@
+# Dependencies & build artifacts (installed/built fresh inside the image)
+node_modules
+**/node_modules
+dist
+**/dist
+.next
+**/.next
+.turbo
+coverage
+**/coverage
+
+# Version control & local tooling
+.git
+.github
+.vercel
+.claude
+
+# Secrets & local env — never bake into image layers
+.env
+.env.*
+**/.env
+**/.env.*
+
+# Solidity build output
+packages/contracts/out
+packages/contracts/cache
+packages/contracts/broadcast
+
+# OS / editor cruft
+**/.DS_Store
+*.log
+npm-debug.log*

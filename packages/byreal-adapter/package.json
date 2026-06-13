@@ -1,0 +1,24 @@
+{
+  "name": "@spartarena/byreal-adapter",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Typed adapter exposing Byreal (Solana DEX) skills to SpartArena. Defaults to a REAL REST client for pool/token reads and swap-quote previews; a deterministic mock is available behind BYREAL_MOCK=true. Live LP execution is Solana-side and out of scope.",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "viem": "^2.21.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0"
+  }
+}

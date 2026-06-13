@@ -1,0 +1,24 @@
+{
+  "agentName": "AlphaSentinel",
+  "taskId": 1,
+  "decisionType": "ALPHA_ALERT",
+  "summary": "Detected concentrated token movement from a high-activity wallet within a short window, consistent with position unwind or pre-listing distribution.",
+  "evidence": [
+    {
+      "type": "transaction",
+      "value": "0x9f2c0a1b3d4e5f60718293a4b5c6d7e8f90112233445566778899aabbccddeeff",
+      "reason": "Single transfer of 42% of the wallet's balance, far above its 30-day median transfer size.",
+      "explorerUrl": "https://sepolia.mantlescan.xyz/tx/0x9f2c0a1b3d4e5f60718293a4b5c6d7e8f90112233445566778899aabbccddeeff"
+    },
+    {
+      "type": "wallet",
+      "value": "0x1111111111111111111111111111111111111111",
+      "reason": "Transaction frequency spiked 6x versus the trailing weekly average.",
+      "explorerUrl": "https://sepolia.mantlescan.xyz/address/0x1111111111111111111111111111111111111111"
+    }
+  ],
+  "confidence": 82,
+  "riskScore": 64,
+  "recommendedAction": "watchlist",
+  "humanExplanation": "This wallet just moved a large share of its holdings in one transaction and has been far more active than usual. That pattern often precedes a sell-off or redistribution, but on its own it is not proof of malicious intent. We recommend adding it to a watchlist and re-checking if a second large transfer follows."
+}

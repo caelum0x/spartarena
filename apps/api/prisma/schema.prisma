@@ -1,0 +1,226 @@
+// SpartArena database schema.
+//
+// Postgres is a fast, queryable mirror of on-chain state — the chain (Mantle)
+// remains the source of truth for all proofs. Models mirror plan.md §12:
+// users, agents, tasks, decisions, reputation_scores, events.
+//
+// Conventions:
+//   • cuid() primary keys for all rows (stable, sortable, URL-safe).
+//   • chain_* columns hold the canonical on-chain identifiers / hashes.
+//   • createdAt / updatedAt timestamps on mutable rows.
+//   • enums mirror the Solidity TaskStatus order and our agent lifecycle.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ── Enums ────────────────────────────────────────────────────────────────────
+
+/// Lifecycle of a Battle (task). Order MUST match TaskEscrow's Solidity enum:
+/// enum TaskStatus { Open, Accepted, Submitted, Verified, Paid, Cancelled }
+enum TaskStatus {
+  OPEN
+  ACCEPTED
+  SUBMITTED
+  VERIFIED
+  PAID
+  CANCELLED
+}
+
+/// Operational status of a registered Spartan.
+enum AgentStatus {
+  ACTIVE
+  INACTIVE
+}
+
+/// Lifecycle of a sponsor workstream that groups multiple Battles.
+enum ProjectStatus {
+  PLANNING
+  ACTIVE
+  SETTLED
+  ARCHIVED
+}
+
+/// Category of action recorded alongside a decision in the War Chronicle.
+enum ActionType {
+  ALPHA_ALERT
+  RWA_STRATEGY
+  GAS_OPTIMIZATION
+  CONTRACT_AUDIT
+  BYREAL_POOL_ANALYSIS
+  OTHER
+}
+
+// ── Models ───────────────────────────────────────────────────────────────────
+
+/// A human (or protocol) wallet that posts Battles or owns Spartans.
+model User {
+  id            String   @id @default(cuid())
+  walletAddress String   @unique @map("wallet_address")
+  username      String?
+  avatarUrl     String?  @map("avatar_url")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+/// A registered Spartan: off-chain metadata joined to its on-chain identity.
+model Agent {
+  id            String      @id @default(cuid())
+  /// On-chain AgentRegistry id. Null until the registration event is indexed.
+  chainAgentId  Int?        @unique @map("chain_agent_id")
+  ownerWallet   String      @map("owner_wallet")
+  agentWallet   String      @map("agent_wallet")
+  name          String
+  slug          String      @unique
+  description   String      @default("")
+  avatarUrl     String?     @map("avatar_url")
+  metadataUri   String?     @map("metadata_uri")
+  /// Advertised skill codes (e.g. ["ALPHA_DETECTION","TELEGRAM_ALERT"]).
+  skills        String[]    @default([])
+  modelProvider String?     @map("model_provider")
+  modelName     String?     @map("model_name")
+  status        AgentStatus @default(ACTIVE)
+  createdAt     DateTime    @default(now()) @map("created_at")
+  updatedAt     DateTime    @updatedAt @map("updated_at")
+
+  assignedTasks Task[]      @relation("TaskAgent")
+  reputation    ReputationScore[]
+
+  @@index([ownerWallet])
+  @@index([status])
+  @@map("agents")
+}
+
+/// A Battle posted by a user with an MNT reward locked in the Battle Vault.
+model Task {
+  id              String     @id @default(cuid())
+  /// On-chain TaskEscrow id. Null until the creation event is indexed.
+  chainTaskId     Int?       @unique @map("chain_task_id")
+  creatorWallet   String     @map("creator_wallet")
+  projectId       String?    @map("project_id")
+  assignedAgentId String?    @map("assigned_agent_id")
+  title           String
+  description     String
+  descriptionHash String     @map("description_hash")
+  requiredSkill   String?    @map("required_skill")
+  /// Reward in wei (native MNT). Stored as string to avoid bigint precision loss.
+  rewardAmount    String     @map("reward_amount")
+  status          TaskStatus @default(OPEN)
+  /// Deadline as a unix timestamp in seconds.
+  deadline        BigInt?
+  createdAt       DateTime   @default(now()) @map("created_at")
+  updatedAt       DateTime   @updatedAt @map("updated_at")
+
+  project         Project?   @relation(fields: [projectId], references: [id])
+  assignedAgent   Agent?     @relation("TaskAgent", fields: [assignedAgentId], references: [id])
+  decisions       Decision[]
+
+  @@index([status])
+  @@index([creatorWallet])
+  @@index([projectId])
+  @@map("tasks")
+}
+
+/// A sponsor-owned protocol workstream that bundles multiple Battles.
+model Project {
+  id             String        @id @default(cuid())
+  slug           String        @unique
+  title          String
+  summary        String
+  sponsorWallet  String        @map("sponsor_wallet")
+  treasuryWei    String        @default("0") @map("treasury_wei")
+  status         ProjectStatus @default(PLANNING)
+  requiredSkills String[]      @default([]) @map("required_skills")
+  deadline       BigInt?
+  createdAt      DateTime      @default(now()) @map("created_at")
+  updatedAt      DateTime      @updatedAt @map("updated_at")
+
+  tasks          Task[]
+
+  @@index([sponsorWallet])
+  @@index([status])
+  @@map("projects")
+}
+
+/// A recorded decision proof (War Chronicle entry) committing prompt/output/tool
+/// hashes plus the full off-chain output JSON for replay and display.
+model Decision {
+  id              String     @id @default(cuid())
+  /// On-chain DecisionLedger id. Null until the record event is indexed.
+  chainDecisionId Int?       @unique @map("chain_decision_id")
+  chainTaskId     Int?       @map("chain_task_id")
+  chainAgentId    Int?       @map("chain_agent_id")
+  taskId          String?    @map("task_id")
+  promptHash      String     @map("prompt_hash")
+  outputHash      String     @map("output_hash")
+  toolsHash       String     @map("tools_hash")
+  /// Full structured agent output (AlphaSentinelOutput | YieldStrategistOutput).
+  fullOutputJson  Json       @map("full_output_json")
+  confidence      Int
+  riskScore       Int        @map("risk_score")
+  actionType      ActionType @map("action_type")
+  txHash          String?    @map("tx_hash")
+  createdAt       DateTime   @default(now()) @map("created_at")
+
+  task            Task?      @relation(fields: [taskId], references: [id])
+
+  @@index([chainAgentId])
+  @@index([chainTaskId])
+  @@map("decisions")
+}
+
+/// A reputation (Honor) scoring event submitted by the Oracle Judge (verifier).
+model ReputationScore {
+  id             String   @id @default(cuid())
+  chainAgentId   Int      @map("chain_agent_id")
+  agentId        String?  @map("agent_id")
+  taskId         String?  @map("task_id")
+  accuracy       Int
+  safety         Int
+  speed          Int
+  userRating     Int      @map("user_rating")
+  totalScore     Int      @map("total_score")
+  verifierWallet String?  @map("verifier_wallet")
+  txHash         String?  @map("tx_hash")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  agent          Agent?   @relation(fields: [agentId], references: [id])
+
+  @@index([chainAgentId])
+  @@map("reputation_scores")
+}
+
+/// A raw indexed chain event, kept for auditing and idempotent re-processing.
+model Event {
+  id           String   @id @default(cuid())
+  contractName String   @map("contract_name")
+  eventName    String   @map("event_name")
+  txHash       String   @map("tx_hash")
+  logIndex     Int      @map("log_index")
+  blockNumber  BigInt   @map("block_number")
+  payloadJson  Json     @map("payload_json")
+  processedAt  DateTime @default(now()) @map("processed_at")
+
+  // A (txHash, logIndex) pair uniquely identifies a log — enforces idempotency.
+  @@unique([txHash, logIndex])
+  @@index([contractName, eventName])
+  @@index([blockNumber])
+  @@map("events")
+}
+
+/// Tracks the last block scanned per chain so the poller resumes incrementally.
+model IndexerCursor {
+  id              String   @id @default(cuid())
+  chainId         Int      @unique @map("chain_id")
+  lastBlockNumber BigInt   @map("last_block_number")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("indexer_cursors")
+}

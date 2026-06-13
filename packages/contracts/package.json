@@ -1,0 +1,13 @@
+{
+  "name": "@spartarena/contracts",
+  "version": "0.1.0",
+  "private": true,
+  "description": "SpartArena Mantle smart contracts (Foundry).",
+  "scripts": {
+    "build": "forge build",
+    "test": "forge test -vv",
+    "fmt": "forge fmt",
+    "deploy:local": "forge script script/Deploy.s.sol:Deploy --rpc-url localhost --broadcast",
+    "deploy:mantle-sepolia": "forge script script/Deploy.s.sol:Deploy --rpc-url mantle_sepolia --broadcast --verify --slow"
+  }
+}

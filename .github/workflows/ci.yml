@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  contracts:
+    name: Contracts (Foundry)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/contracts
+    steps:
+      - uses: actions/checkout@v4
+      - uses: foundry-rs/foundry-toolchain@v1
+      - name: Install forge-std
+        run: forge install foundry-rs/forge-std --no-git
+      - name: Build
+        run: forge build --sizes
+      - name: Test
+        run: forge test -vv
+
+  workspace:
+    name: TypeScript build + typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile=false
+      - name: Generate Prisma client
+        run: pnpm --filter @spartarena/api prisma:generate
+      - name: Build workspace
+        run: pnpm build
+      - name: Typecheck workspace
+        run: pnpm typecheck
+      - name: Lint web app
+        run: pnpm lint
+      - name: Unit tests + coverage
+        run: pnpm test:coverage
+      - name: Offline agent workflow
+        run: pnpm agent:demo
+      - name: Dependency audit (high+)
+        run: pnpm audit --audit-level=high
+        continue-on-error: true

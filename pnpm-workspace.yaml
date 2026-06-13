@@ -1,0 +1,29 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+
+# Patch transitive esbuild past GHSA-gv7w-rqvm-qjhr (dev-server request smuggling).
+overrides:
+  esbuild: ">=0.25.0"
+
+allowBuilds:
+  '@prisma/client': true
+  '@prisma/engines': true
+  bufferutil: true
+  esbuild: true
+  keccak: true
+  prisma: true
+  sharp: true
+  unrs-resolver: true
+  utf-8-validate: true
+
+onlyBuiltDependencies:
+  - esbuild
+  - "@prisma/client"
+  - "@prisma/engines"
+  - prisma
+  - keccak
+  - sharp
+  - bufferutil
+  - utf-8-validate
+  - unrs-resolver

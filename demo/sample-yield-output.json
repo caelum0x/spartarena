@@ -1,0 +1,30 @@
+{
+  "agentName": "YieldStrategist",
+  "taskId": 2,
+  "decisionType": "RWA_STRATEGY",
+  "strategySummary": "Capital-preservation allocation favouring lower-volatility Mantle ecosystem assets, with a yield-bearing RWA sleeve and a liquidity buffer in native MNT.",
+  "assets": [
+    {
+      "symbol": "USDY",
+      "suggestedWeight": 50,
+      "reason": "Yield-bearing tokenised treasury exposure; lowest volatility in the basket and the primary capital-preservation anchor."
+    },
+    {
+      "symbol": "mETH",
+      "suggestedWeight": 30,
+      "reason": "Staked-ETH yield with deep Mantle liquidity; moderate volatility offset by staking rewards."
+    },
+    {
+      "symbol": "MNT",
+      "suggestedWeight": 20,
+      "reason": "Native gas and liquidity buffer to cover fees and enable quick rebalancing without selling the yield sleeve."
+    }
+  ],
+  "confidence": 76,
+  "riskScore": 38,
+  "policyWarnings": [
+    "Allocation assumes a conservative risk profile; do not apply to growth or speculative mandates without re-scoring.",
+    "USDY and mETH carry smart-contract and depeg risk; weights should be reviewed if either deviates from peg by more than 1%."
+  ],
+  "humanExplanation": "For capital preservation we keep half the portfolio in a yield-bearing treasury token, add a measured staked-ETH position for extra yield, and hold one fifth in MNT so you always have liquidity for fees and rebalancing. This favours steady, low-volatility returns over chasing high APYs."
+}
