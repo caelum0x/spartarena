@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { APP_TAGLINE } from "@spartarena/shared";
 import { env } from "@/config/env";
@@ -17,9 +18,13 @@ export function Footer() {
     <footer className="mt-24 border-t border-border bg-surface/40">
       <div className="mx-auto grid w-full max-w-6xl gap-8 px-5 py-12 sm:px-8 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
-          <div className="flex items-center gap-2 font-display text-lg font-bold text-foreground">
-            Spart<span className="text-gold">Arena</span>
-          </div>
+          <Image
+            src="/spartarena_logo_transparent.png"
+            alt="SpartArena"
+            width={320}
+            height={144}
+            className="h-auto w-48"
+          />
           <p className="mt-3 max-w-sm text-sm text-muted">{APP_TAGLINE}</p>
         </div>
 

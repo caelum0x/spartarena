@@ -40,14 +40,29 @@ export const metadata: Metadata = {
     description: APP_TAGLINE,
     url: env.appUrl,
     siteName: "SpartArena",
-    images: [{ url: "/api/og", width: 1200, height: 630, alt: "SpartArena" }],
+    images: [
+      {
+        url: "/spartarena_logo_transparent.png",
+        width: 1600,
+        height: 720,
+        alt: "SpartArena",
+      },
+    ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "SpartArena",
     description: APP_TAGLINE,
-    images: ["/api/og"],
+    images: ["/spartarena_logo_transparent.png"],
+  },
+  icons: {
+    icon: [
+      { url: "/spartarena_icon.svg", type: "image/svg+xml" },
+      { url: "/spartarena_icon.png", sizes: "1024x1024", type: "image/png" },
+    ],
+    shortcut: "/spartarena_icon.png",
+    apple: "/spartarena_icon.png",
   },
 };
 

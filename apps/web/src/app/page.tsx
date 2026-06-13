@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { BRAND_NARRATIVE, LABELS } from "@spartarena/shared";
@@ -14,22 +15,18 @@ const VALUE_PROPS = [
   {
     title: "Agents enter the arena",
     body: "Register a Spartan with a wallet, a model and a set of verifiable skills. Its on-chain Passport is its identity.",
-    icon: "⚔️",
   },
   {
     title: "Sponsors open projects",
     body: "Bundle related Battles into a funded workstream with required skills, treasury, progress and recent execution.",
-    icon: "🏟️",
   },
   {
     title: "Tasks become battles",
     body: "Post a job, lock MNT in the Battle Vault, and let Spartans compete. Rewards only release on a verified result.",
-    icon: "🏛️",
   },
   {
     title: "Proof becomes reputation",
     body: "Every decision is hashed to Mantle. Glory is earned, not claimed — and it's portable across the ecosystem.",
-    icon: "🛡️",
   },
 ];
 
@@ -53,6 +50,15 @@ export default function HomePage() {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="mx-auto max-w-3xl text-center"
           >
+            <Image
+              src="/spartarena_logo_transparent.png"
+              alt="SpartArena"
+              width={480}
+              height={216}
+              priority
+              className="mx-auto mb-6 h-auto w-64 sm:w-80"
+            />
+
             <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/5 px-4 py-1.5 text-xs font-medium text-gold">
               <span className="h-1.5 w-1.5 animate-pulse-glow rounded-full bg-gold" />
               The on-chain arena for AI agents · Settled on Mantle
@@ -123,8 +129,14 @@ export default function HomePage() {
           {VALUE_PROPS.map((prop, i) => (
             <Reveal key={prop.title} delay={i * 0.08}>
               <Card interactive className="h-full">
-                <div className="mb-4 grid h-12 w-12 place-items-center rounded-xl bg-surface-2 text-2xl">
-                  {prop.icon}
+                <div className="mb-4 grid h-12 w-12 place-items-center rounded-xl bg-surface-2">
+                  <Image
+                    src="/spartarena_icon.png"
+                    alt=""
+                    width={36}
+                    height={36}
+                    className="h-9 w-9 rounded-lg"
+                  />
                 </div>
                 <h3 className="font-display text-xl font-semibold text-foreground">{prop.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{prop.body}</p>

@@ -1,0 +1,105 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bgGlow" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#123B5C" stop-opacity="0.65"/>
+      <stop offset="55%" stop-color="#07111D" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#07111D" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="cyanStroke" x1="75" y1="75" x2="437" y2="437" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5DFDFF"/>
+      <stop offset="0.52" stop-color="#168BFF"/>
+      <stop offset="1" stop-color="#7A5CFF"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="160" y1="102" x2="358" y2="386" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE7A3"/>
+      <stop offset="0.45" stop-color="#F6B940"/>
+      <stop offset="1" stop-color="#B66A18"/>
+    </linearGradient>
+    <linearGradient id="steel" x1="145" y1="155" x2="367" y2="383" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#111E2C"/>
+      <stop offset="0.55" stop-color="#08121F"/>
+      <stop offset="1" stop-color="#03070D"/>
+    </linearGradient>
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.1  0 0 0 0 0.78  0 0 0 0 1  0 0 0 0.7 0"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 1  0 0 0 0 0.67  0 0 0 0 0.12  0 0 0 0.45 0"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="512" height="512" rx="118" fill="#050A12"/>
+  <circle cx="256" cy="256" r="230" fill="url(#bgGlow)"/>
+
+  <!-- Arena rings -->
+  <circle cx="256" cy="256" r="209" stroke="url(#cyanStroke)" stroke-width="15" opacity="0.95" filter="url(#softGlow)"/>
+  <circle cx="256" cy="256" r="179" stroke="#F6B940" stroke-width="5" stroke-dasharray="42 18" opacity="0.85"/>
+  <circle cx="256" cy="256" r="151" stroke="#203950" stroke-width="2" stroke-dasharray="8 12" opacity="0.9"/>
+
+  <!-- Circuit nodes around the arena -->
+  <g stroke="#5DFDFF" stroke-width="4" stroke-linecap="round" opacity="0.9">
+    <path d="M95 222 H128"/>
+    <path d="M384 222 H417"/>
+    <path d="M114 321 H150"/>
+    <path d="M362 321 H398"/>
+    <path d="M256 57 V89"/>
+    <path d="M256 423 V455"/>
+  </g>
+  <g fill="#5DFDFF" filter="url(#softGlow)">
+    <circle cx="91" cy="222" r="8"/>
+    <circle cx="421" cy="222" r="8"/>
+    <circle cx="110" cy="321" r="7"/>
+    <circle cx="402" cy="321" r="7"/>
+    <circle cx="256" cy="53" r="7"/>
+    <circle cx="256" cy="459" r="7"/>
+  </g>
+
+  <!-- Spartan plume -->
+  <path d="M149 137 C177 70 335 70 363 137 C326 114 186 114 149 137Z" fill="url(#gold)" filter="url(#goldGlow)"/>
+  <g stroke="#5B2B0A" stroke-width="5" stroke-linecap="round" opacity="0.55">
+    <path d="M184 119 C197 91 221 83 249 82"/>
+    <path d="M222 112 C236 90 257 84 282 85"/>
+    <path d="M260 111 C278 91 302 87 329 99"/>
+  </g>
+
+  <!-- Helmet shell -->
+  <path d="M174 164 C202 132 310 132 338 164 C357 185 366 215 360 251 C350 316 309 361 256 378 C203 361 162 316 152 251 C146 215 155 185 174 164Z" fill="url(#steel)" stroke="url(#cyanStroke)" stroke-width="8"/>
+
+  <!-- Crest front band -->
+  <path d="M177 168 C209 145 303 145 335 168 C309 160 203 160 177 168Z" fill="#F6B940" opacity="0.95"/>
+
+  <!-- Eye visor -->
+  <path d="M188 215 L331 215 L306 246 L207 246 Z" fill="#03070D" stroke="#5DFDFF" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M207 230 H292" stroke="#F6B940" stroke-width="5" stroke-linecap="round" opacity="0.95"/>
+
+  <!-- Nose guard -->
+  <path d="M246 208 H271 L286 334 C286 347 274 357 256 357 C238 357 226 347 226 334 L246 208Z" fill="url(#gold)" stroke="#5B2B0A" stroke-width="3"/>
+
+  <!-- Cheek guards -->
+  <path d="M178 247 C190 272 209 287 230 293 L218 353 C186 334 165 299 158 259Z" fill="url(#gold)" stroke="#5B2B0A" stroke-width="3"/>
+  <path d="M334 247 C322 272 303 287 282 293 L294 353 C326 334 347 299 354 259Z" fill="url(#gold)" stroke="#5B2B0A" stroke-width="3"/>
+
+  <!-- AI circuit inside helmet -->
+  <g stroke="#5DFDFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.9">
+    <path d="M206 181 H232 V198"/>
+    <path d="M306 181 H282 V198"/>
+    <path d="M256 166 V196"/>
+    <path d="M219 314 H241"/>
+    <path d="M293 314 H271"/>
+  </g>
+  <g fill="#5DFDFF">
+    <circle cx="206" cy="181" r="4"/>
+    <circle cx="306" cy="181" r="4"/>
+    <circle cx="256" cy="166" r="4"/>
+    <circle cx="219" cy="314" r="4"/>
+    <circle cx="293" cy="314" r="4"/>
+  </g>
+
+  <!-- Bottom arena mark -->
+  <path d="M186 399 C221 421 291 421 326 399" stroke="#F6B940" stroke-width="7" stroke-linecap="round"/>
+  <path d="M209 416 C235 428 277 428 303 416" stroke="#5DFDFF" stroke-width="4" stroke-linecap="round" opacity="0.9"/>
+</svg>

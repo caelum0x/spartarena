@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -27,9 +28,14 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-5 sm:px-8">
         <Link href="/" className="group flex items-center gap-2.5">
-          <span className="grid h-9 w-9 place-items-center rounded-lg bg-gold-gradient text-background shadow-glow">
-            <ShieldIcon />
-          </span>
+          <Image
+            src="/spartarena_icon.png"
+            alt=""
+            width={36}
+            height={36}
+            priority
+            className="h-9 w-9 rounded-lg shadow-glow"
+          />
           <span className="font-display text-lg font-bold tracking-tight text-foreground">
             Spart<span className="text-gold">Arena</span>
           </span>
@@ -89,18 +95,5 @@ export function Header() {
         </nav>
       )}
     </header>
-  );
-}
-
-function ShieldIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path
-        d="M12 2.5l7 2.5v5.5c0 4.5-3 8.2-7 9.5-4-1.3-7-5-7-9.5V5l7-2.5z"
-        fill="currentColor"
-        opacity="0.92"
-      />
-      <path d="M9.5 12l1.8 1.8L15 9.8" stroke="#0B0B0E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
   );
 }
