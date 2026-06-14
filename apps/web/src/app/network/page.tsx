@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { formatGwei } from "viem";
 import { Container, PageHeader } from "@/components/ui/Container";
+import { NetworkTabs } from "@/components/network/NetworkTabs";
 import { Card } from "@/components/ui/Card";
 import { Stat } from "@/components/ui/Stat";
 import { Spinner } from "@/components/ui/Spinner";
@@ -91,12 +92,6 @@ export default function NetworkPage() {
         description="Live status of the real Mantle chain — latest block height and gas price read straight from the public RPC — alongside real-time market prices for the tokens SpartArena settles in. Everything here is on-chain and on-market data, refreshed on a gentle interval. No mock data."
         actions={
           <div className="flex items-center gap-3">
-            <Link href="/network/blocks" className="text-sm font-medium text-gold hover:underline">
-              Blocks →
-            </Link>
-            <Link href="/network/gas" className="text-sm font-medium text-gold hover:underline">
-              Gas Tracker →
-            </Link>
             <Badge tone="success">
               <LiveDot />
               <span className="ml-1">Live</span>
@@ -104,6 +99,8 @@ export default function NetworkPage() {
           </div>
         }
       />
+
+      <NetworkTabs />
 
       <div className="space-y-12">
         <section>

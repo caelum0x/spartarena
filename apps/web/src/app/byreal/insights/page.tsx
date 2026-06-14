@@ -54,8 +54,10 @@ export default function ByrealInsightsPage() {
   const pools = useByrealPools();
   const tokens = useByrealTokens();
 
-  const poolList: readonly ByrealPoolView[] = pools.data?.data ?? [];
-  const tokenList: readonly ByrealTokenView[] = tokens.data?.data ?? [];
+  const poolData = pools.data;
+  const tokenData = tokens.data;
+  const poolList = useMemo<readonly ByrealPoolView[]>(() => poolData?.data ?? [], [poolData]);
+  const tokenList = useMemo<readonly ByrealTokenView[]>(() => tokenData?.data ?? [], [tokenData]);
 
   const topPool = useMemo<ByrealPoolView | null>(() => {
     if (poolList.length === 0) return null;

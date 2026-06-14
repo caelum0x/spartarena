@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { Container, PageHeader } from "@/components/ui/Container";
+import { NetworkTabs } from "@/components/network/NetworkTabs";
 import { Card } from "@/components/ui/Card";
 import { Stat } from "@/components/ui/Stat";
 import { Spinner } from "@/components/ui/Spinner";
@@ -62,14 +62,7 @@ export default function GasTrackerPage() {
         }
       />
 
-      <div className="mb-8">
-        <Link
-          href="/network"
-          className="inline-flex items-center gap-1 text-sm font-medium text-gold transition-colors hover:text-gold/80"
-        >
-          <span aria-hidden>←</span> Network
-        </Link>
-      </div>
+      <NetworkTabs />
 
       {hardDown ? (
         <Card className="border-crimson/30 bg-crimson/5 p-6">

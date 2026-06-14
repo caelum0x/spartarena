@@ -11,6 +11,7 @@ import { Stat } from "@/components/ui/Stat";
 import { HashViewer } from "@/components/decisions/HashViewer";
 import { useByrealToken } from "@/hooks/useByrealTokens";
 import { useByrealPools } from "@/hooks/useByrealPools";
+import { LiveQuote } from "@/components/byreal/LiveQuote";
 import { formatUsd, pct1 } from "@/lib/format";
 
 function formatPrice(price: number | null): string {
@@ -123,6 +124,10 @@ export default function ByrealTokenDetailPage({
         <Link href={`/byreal/swap?tokenIn=${encodeURIComponent(token.mint)}`}>
           <Button variant="ghost">Preview a swap</Button>
         </Link>
+      </div>
+
+      <div className="mt-8">
+        <LiveQuote mint={token.mint} symbol={token.symbol} />
       </div>
 
       {relatedPools.length > 0 && (

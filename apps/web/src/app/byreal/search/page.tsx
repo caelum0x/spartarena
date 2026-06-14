@@ -124,8 +124,10 @@ export default function ByrealSearchPage() {
   const q = query.trim().toLowerCase();
   const hasQuery = q.length > 0;
 
-  const allPools = pools.data?.data ?? [];
-  const allTokens = tokens.data?.data ?? [];
+  const poolData = pools.data;
+  const tokenData = tokens.data;
+  const allPools = useMemo<readonly ByrealPoolView[]>(() => poolData?.data ?? [], [poolData]);
+  const allTokens = useMemo<readonly ByrealTokenView[]>(() => tokenData?.data ?? [], [tokenData]);
 
   const matchedPools = useMemo<readonly ByrealPoolView[]>(() => {
     if (!hasQuery) {

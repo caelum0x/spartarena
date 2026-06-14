@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { timeAgo } from "@spartarena/shared";
 import { Container, PageHeader } from "@/components/ui/Container";
+import { NetworkTabs } from "@/components/network/NetworkTabs";
 import { Card } from "@/components/ui/Card";
 import { Stat } from "@/components/ui/Stat";
 import { Spinner } from "@/components/ui/Spinner";
@@ -113,20 +114,14 @@ export default function RecentBlocksPage() {
         title="Recent Blocks"
         description="The latest blocks on the real Mantle chain — number, age, transaction count and gas utilization — read straight from the public RPC and refreshed live. No mock data."
         actions={
-          <div className="flex items-center gap-3">
-            <Link
-              href="/network"
-              className="text-sm font-medium text-gold hover:underline"
-            >
-              ← Network
-            </Link>
-            <Badge tone="success">
-              <LiveDot />
-              <span className="ml-1">Live</span>
-            </Badge>
-          </div>
+          <Badge tone="success">
+            <LiveDot />
+            <span className="ml-1">Live</span>
+          </Badge>
         }
       />
+
+      <NetworkTabs />
 
       {blocks.isLoading ? (
         <div className="flex justify-center py-20">

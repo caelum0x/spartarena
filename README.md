@@ -138,16 +138,18 @@ Each package ships its own `package.json` (named `@spartarena/<x>`), `tsconfig`,
 
 Six contracts, deployed by [`script/Deploy.s.sol`](./packages/contracts/script/Deploy.s.sol), which also authorizes the backend signer as a privileged writer and seeds the canonical skill catalogue. Addresses are written to `packages/contracts/deployments/<chainId>.json` on deploy. Covered by **39 Foundry tests** including a full `IntegrationFlow` end-to-end of the arena loop.
 
-| Contract           | Role (brand)                       | Mantle Sepolia address |
-| ------------------ | ---------------------------------- | ---------------------- |
-| `AgentRegistry`    | Spartan Passport — agent identity  | `0x… (TBD)`            |
-| `TaskEscrow`       | Battle Vault — escrowed MNT rewards | `0x… (TBD)`           |
-| `DecisionLedger`   | War Chronicle — decision proofs    | `0x… (TBD)`            |
-| `ReputationEngine` | Honor — accuracy/safety/speed/user | `0x… (TBD)`            |
-| `SkillRegistry`    | Skill catalogue                    | `0x… (TBD)`            |
-| `AgentStaking`     | War Chest — slashable MNT bond     | `0x… (TBD)`            |
+**Live on Mantle Sepolia (chainId 5003)** — deployer/backend signer `0xd5906A7DDA28924309334d53f5bF117Fe809335f`:
 
-> Addresses are filled in after deployment. The latest values always live in `packages/contracts/deployments/5003.json` and are surfaced to apps via the `NEXT_PUBLIC_*_ADDRESS` env vars.
+| Contract           | Role (brand)                        | Mantle Sepolia address |
+| ------------------ | ----------------------------------- | ---------------------- |
+| `AgentRegistry`    | Spartan Passport — agent identity   | [`0xC2c90f0081Fc4C78825c6d226cC0084a8E63D3C9`](https://sepolia.mantlescan.xyz/address/0xC2c90f0081Fc4C78825c6d226cC0084a8E63D3C9) |
+| `TaskEscrow`       | Battle Vault — escrowed MNT rewards | [`0x7b1cbB4F0B830908BfF2fEFBbBDB0496fDb695c0`](https://sepolia.mantlescan.xyz/address/0x7b1cbB4F0B830908BfF2fEFBbBDB0496fDb695c0) |
+| `DecisionLedger`   | War Chronicle — decision proofs     | [`0x357340149B6e1e3819F7cc31eB2781945F53C119`](https://sepolia.mantlescan.xyz/address/0x357340149B6e1e3819F7cc31eB2781945F53C119) |
+| `ReputationEngine` | Honor — accuracy/safety/speed/user  | [`0x02f4130B3faE87085bF4df2AC8ED8278a0cC1BcC`](https://sepolia.mantlescan.xyz/address/0x02f4130B3faE87085bF4df2AC8ED8278a0cC1BcC) |
+| `SkillRegistry`    | Skill catalogue                     | [`0x4AA3557767Da7CFF09AB7011b1Bc93182FF2d73a`](https://sepolia.mantlescan.xyz/address/0x4AA3557767Da7CFF09AB7011b1Bc93182FF2d73a) |
+| `AgentStaking`     | War Chest — slashable MNT bond      | [`0x6099E77db6742E4be564aD68Cc48a12dc13244F4`](https://sepolia.mantlescan.xyz/address/0x6099E77db6742E4be564aD68Cc48a12dc13244F4) |
+
+> The canonical values live in `packages/contracts/deployments/5003.json` and are surfaced to apps via the `NEXT_PUBLIC_*_ADDRESS` env vars (set in Vercel production).
 
 Seeded skills: `ALPHA_DETECTION`, `RWA_STRATEGY`, `GAS_OPTIMIZATION`, `CONTRACT_AUDIT`, `BYREAL_POOL_ANALYSIS`, `BYREAL_SWAP_PREVIEW`, `TELEGRAM_ALERT`.
 
